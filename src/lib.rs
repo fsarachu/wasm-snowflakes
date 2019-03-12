@@ -1,13 +1,17 @@
 extern crate cfg_if;
-extern crate js_sys;
+extern crate rand;
 extern crate wasm_bindgen;
+//extern crate js_sys;
 
 mod utils;
 
 use wasm_bindgen::prelude::*;
+use rand::rngs::OsRng;
+use rand::Rng;
 
 fn rand_between(min: f64, max: f64) -> f64 {
-    (js_sys::Math::random() * (max - min) + min) as f64
+    OsRng::new().unwrap().gen_range(min, max)
+//    (js_sys::Math::random() * (max - min) + min) as f64
 }
 
 #[wasm_bindgen]
@@ -19,7 +23,7 @@ pub struct Snowflake {
     velocity_x: f64,
     velocity_y: f64,
     radius: f64,
-    alpha: f64,
+    opacity: f64,
 }
 
 #[wasm_bindgen]
@@ -30,11 +34,11 @@ impl Snowflake {
 
         if self.y + self.radius > self.max_height {
             self.x = rand_between(0.0, self.max_width);
-            self.y = rand_between(0.0, -self.max_height);
-            self.velocity_x = rand_between(-3.0, 3.0);
-            self.velocity_y = rand_between(2.0, 5.0);
+            self.y = rand_between(-self.max_height, 0.0);
+            self.velocity_x = rand_between(-0.5, 0.5);
+            self.velocity_y = rand_between(1.0, 2.0);
             self.radius = rand_between(1.0, 2.0);
-            self.alpha = rand_between(0.1, 0.9);
+            self.opacity = rand_between(0.3, 0.9);
         }
     }
 
@@ -43,11 +47,11 @@ impl Snowflake {
             max_width,
             max_height,
             x: rand_between(0.0, max_width),
-            y: rand_between(0.0, max_height),
-            velocity_x: rand_between(-3.0, 3.0),
-            velocity_y: rand_between(1.0, 5.0),
-            radius: rand_between(1.0, 4.0),
-            alpha: rand_between(0.1, 0.9),
+            y: rand_between(-max_height, 0.0),
+            velocity_x: rand_between(-0.5, 0.5),
+            velocity_y: rand_between(1.0, 2.0),
+            radius: rand_between(1.0, 2.0),
+            opacity: rand_between(0.3, 0.9),
         }
     }
 
@@ -71,7 +75,7 @@ impl Snowflake {
         self.radius
     }
 
-    pub fn alpha(&self) -> f64 {
-        self.alpha
+    pub fn opacity(&self) -> f64 {
+        self.opacity
     }
 }
