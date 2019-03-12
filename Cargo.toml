@@ -1,5 +1,5 @@
 [package]
-name = "my-wasm-module"
+name = "wasm-snowflakes"
 version = "0.1.0"
 authors = ["fsarachu <fsarachu@gmail.com>"]
 
