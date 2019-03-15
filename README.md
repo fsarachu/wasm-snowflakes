@@ -1,6 +1,8 @@
 # WASM Snowflakes
 Another Rust + WebAssembly version of [❄️ Let's make some SNOW!](https://www.youtube.com/watch?v=VW8qoyYzWGg)
 
+Sample app consuming this module [here](https://github.com/fsarachu/js-snowflakes).
+
 ## Initialized using 🦀🕸️ `wasm-pack-template`
 
 A template for kick starting a Rust and WebAssembly project using
